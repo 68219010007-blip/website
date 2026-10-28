@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลส่วนตัว - ธิติกานต์ สมแก้ว</title>
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Prompt -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,74 +21,48 @@
             width: 100vw;
             height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            color: #f8fafc;
+            background-color: #0f172a; /* Navy/Dark Slate Blue */
+            color: #334155;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.5) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.8) 0px, transparent 50%);
         }
 
-        /* ตกแต่งพื้นหลังเรืองแสง */
-        .bg-glow-1 {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(99, 102, 241, 0.25);
-            filter: blur(120px);
-            border-radius: 50%;
-            top: 10%;
-            left: 15%;
-            z-index: 1;
-        }
-
-        .bg-glow-2 {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(236, 72, 153, 0.2);
-            filter: blur(120px);
-            border-radius: 50%;
-            bottom: 10%;
-            right: 15%;
-            z-index: 1;
-        }
-
-        /* การ์ดหลักแบบ Glassmorphism เต็มหน้าจอ */
-        .main-card {
-            position: relative;
-            z-index: 10;
+        /* การ์ดหลัก */
+        .main-container {
             width: 90%;
-            max-width: 1100px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 28px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 950px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
             display: grid;
             grid-template-columns: 320px 1fr;
-            gap: 40px;
-            align-items: center;
         }
 
-        /* ฝั่งรูปภาพโปรไฟล์ */
-        .profile-side {
+        /* ฝั่งรูปโปรไฟล์ */
+        .profile-section {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 40px 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            border-right: 1px solid #334155;
             text-align: center;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding-right: 30px;
         }
 
-        .avatar-container {
+        /* ส่วนอัปโหลดรูปภาพ */
+        .avatar-wrapper {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin-bottom: 24px;
+            width: 170px;
+            height: 170px;
+            margin-bottom: 20px;
         }
 
         .avatar-img {
@@ -96,65 +70,95 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            background-color: #1e293b;
+            border: 4px solid #3b82f6;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            background-color: #0f172a;
         }
 
-        /* ตกแต่งขอบไฟเรืองแสงรอบรูป */
-        .avatar-container::before {
-            content: '';
+        .upload-btn {
             position: absolute;
-            inset: -6px;
+            bottom: 5px;
+            right: 5px;
+            width: 42px;
+            height: 42px;
+            background-color: #2563eb;
+            color: #ffffff;
             border-radius: 50%;
-            background: linear-gradient(45deg, #a855f7, #ec4899, #3b82f6);
-            z-index: -1;
-            filter: blur(8px);
-            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid #1e293b;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
         }
 
-        .nickname-badge {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            padding: 6px 20px;
-            border-radius: 50px;
+        .upload-btn:hover {
+            background-color: #1d4ed8;
+            transform: scale(1.08);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .profile-title {
+            font-size: 1.25rem;
             font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-            margin-bottom: 16px;
+            color: #f8fafc;
+            margin-bottom: 4px;
         }
 
-        .visitor-box {
-            margin-top: 15px;
+        .profile-subtitle {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .visitor-card {
             background: rgba(15, 23, 42, 0.6);
-            padding: 10px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid #334155;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 6px;
+            width: 100%;
         }
 
-        .visitor-label {
-            font-size: 0.8rem;
+        .visitor-title {
+            font-size: 0.75rem;
             color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* ฝั่งเนื้อหาข้อมูล */
-        .info-side {
+        /* ฝั่งข้อมูลส่วนบุคคล */
+        .info-section {
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            justify-content: center;
         }
 
-        .header-title {
-            font-size: 2rem;
+        .header-box {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .header-box h1 {
+            font-size: 1.5rem;
+            color: #0f172a;
             font-weight: 700;
-            background: linear-gradient(to right, #ffffff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-box h1 i {
+            color: #2563eb;
         }
 
         .info-grid {
@@ -163,80 +167,66 @@
             gap: 16px;
         }
 
-        .info-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            padding: 16px 20px;
-            border-radius: 16px;
+        .info-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            transform: translateY(-2px);
-            border-color: rgba(236, 72, 153, 0.4);
+            gap: 14px;
         }
 
         .info-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(139, 92, 246, 0.15);
-            color: #c084fc;
+            width: 38px;
+            height: 38px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
-        .info-card.hobby-card .info-icon {
-            background: rgba(236, 72, 153, 0.15);
-            color: #f472b6;
-        }
-
-        .info-text label {
+        .info-content label {
             display: block;
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-bottom: 2px;
-        }
-
-        .info-text span {
-            font-size: 1.05rem;
+            font-size: 0.75rem;
+            color: #64748b;
             font-weight: 500;
-            color: #f8fafc;
         }
 
-        .hobby-card {
+        .info-content span {
+            font-size: 0.95rem;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .info-item.full-width {
             grid-column: span 2;
-            background: linear-gradient(90deg, rgba(236, 72, 153, 0.08), rgba(139, 92, 246, 0.08));
+            background: #f1f5f9;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
+        /* Responsive สำหรับหน้าจอขนาดเล็ก */
+        @media (max-width: 800px) {
             body {
                 height: auto;
                 min-height: 100vh;
-                padding: 40px 0;
+                padding: 20px 0;
             }
-            .main-card {
+            .main-container {
                 grid-template-columns: 1fr;
-                padding: 30px 20px;
-                gap: 30px;
+                width: 95%;
             }
-            .profile-side {
+            .profile-section {
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding-right: 0;
-                padding-bottom: 30px;
+                border-bottom: 1px solid #334155;
             }
             .info-grid {
                 grid-template-columns: 1fr;
             }
-            .hobby-card {
+            .info-item.full-width {
                 grid-column: span 1;
             }
         }
@@ -244,97 +234,120 @@
 </head>
 <body>
 
-    <!-- ตกแต่งพื้นหลังแสงฟุ้ง -->
-    <div class="bg-glow-1"></div>
-    <div class="bg-glow-2"></div>
-
-    <!-- โครงสร้างการ์ดหลัก -->
-    <div class="main-card">
+    <div class="main-container">
         
-        <!-- ฝั่งโปรไฟล์ & สถิติ -->
-        <div class="profile-side">
-            <div class="avatar-container">
-                <!-- สามารถเปลี่ยน URL รูปภาพตรง src ได้ครับ -->
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="รูปโปรไฟล์" class="avatar-img">
-            </div>
-            
-            <div class="nickname-badge">
-                <i class="fa-solid fa-sparkles"></i> สมาย (Smile)
+        <!-- ส่วนโปรไฟล์ & อัปโหลดรูป -->
+        <div class="profile-section">
+            <div class="avatar-wrapper">
+                <!-- รูปเริ่มต้น -->
+                <img id="profile-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="รูปโปรไฟล์" class="avatar-img">
+                
+                <!-- ปุ่มสำหรับคลิกเพื่อเปลี่ยนรูป -->
+                <label for="file-input" class="upload-btn" title="คลิกเพื่อเปลี่ยนรูปโปรไฟล์">
+                    <i class="fa-solid fa-camera"></i>
+                </label>
+                <input type="file" id="file-input" accept="image/*">
             </div>
 
-            <div class="visitor-box">
-                <span class="visitor-label"><i class="fa-solid fa-eye"></i> จำนวนผู้เข้าชม</span>
-                <img src="https://visitor-badge.laobi.icu/badge?page_id=Thitikarn-Somkaew.fullprofile&left_color=1e1b4b&right_color=ec4899&left_text=Visitors" alt="Visitor Counter">
+            <div class="profile-title">ธิติกานต์ สมแก้ว</div>
+            <div class="profile-subtitle">สมาย (Smile)</div>
+
+            <!-- สถิติการเข้าชม -->
+            <div class="visitor-card">
+                <span class="visitor-title"><i class="fa-solid fa-chart-line"></i> สถิติการเข้าชม</span>
+                <img src="https://visitor-badge.laobi.icu/badge?page_id=Thitikarn-Somkaew.formal-web&left_color=0f172a&right_color=2563eb&left_text=Visitors" alt="จำนวนผู้เข้าชม">
             </div>
         </div>
 
-        <!-- ฝั่งข้อมูลรายละเอียด -->
-        <div class="info-side">
-            <div>
-                <h1 class="header-title">👤 ข้อมูลส่วนตัว</h1>
-                <p style="color: #94a3b8; font-size: 0.95rem;">Personal Profile Dashboard</p>
+        <!-- ส่วนแสดงข้อมูลส่วนบุคคล -->
+        <div class="info-section">
+            <div class="header-box">
+                <h1><i class="fa-solid fa-address-card"></i> ข้อมูลส่วนบุคคล (Personal Profile)</h1>
             </div>
 
             <div class="info-grid">
-                
                 <!-- ชื่อ-นามสกุล -->
-                <div class="info-card">
+                <div class="info-item">
                     <div class="info-icon"><i class="fa-solid fa-user"></i></div>
-                    <div class="info-text">
+                    <div class="info-content">
                         <label>ชื่อ-นามสกุล</label>
                         <span>ธิติกานต์ สมแก้ว</span>
                     </div>
                 </div>
 
-                <!-- วันเกิด -->
-                <div class="info-card">
-                    <div class="info-icon"><i class="fa-solid fa-cake-candles"></i></div>
-                    <div class="info-text">
+                <!-- ชื่อเล่น -->
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-signature"></i></div>
+                    <div class="info-content">
+                        <label>ชื่อเล่น</label>
+                        <span>สมาย</span>
+                    </div>
+                </div>
+
+                <!-- วัน/เดือน/ปีเกิด -->
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div class="info-content">
                         <label>วัน/เดือน/ปีเกิด</label>
                         <span>13/02/2010</span>
                     </div>
                 </div>
 
                 <!-- อายุ -->
-                <div class="info-card">
-                    <div class="info-icon"><i class="fa-solid fa-hourglass-half"></i></div>
-                    <div class="info-text">
+                <div class="info-icon-box info-item">
+                    <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="info-content">
                         <label>อายุ</label>
                         <span>16 ปี</span>
                     </div>
                 </div>
 
                 <!-- สัญชาติ -->
-                <div class="info-card">
+                <div class="info-item">
                     <div class="info-icon"><i class="fa-solid fa-flag"></i></div>
-                    <div class="info-text">
+                    <div class="info-content">
                         <label>สัญชาติ</label>
                         <span>Thai</span>
                     </div>
                 </div>
 
                 <!-- ศาสนา -->
-                <div class="info-card">
+                <div class="info-item">
                     <div class="info-icon"><i class="fa-solid fa-dharmachakra"></i></div>
-                    <div class="info-text">
+                    <div class="info-content">
                         <label>ศาสนา</label>
                         <span>พุทธ</span>
                     </div>
                 </div>
 
                 <!-- งานอดิเรก -->
-                <div class="info-card hobby-card">
+                <div class="info-item full-width">
                     <div class="info-icon"><i class="fa-solid fa-palette"></i></div>
-                    <div class="info-text">
+                    <div class="info-content">
                         <label>งานอดิเรกและความสนใจ</label>
                         <span>วาดภาพ</span>
                     </div>
                 </div>
-
             </div>
         </div>
 
     </div>
 
+    <!-- สคริปต์สำหรับเปลี่ยนรูปภาพ -->
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const profileImg = document.getElementById('profile-img');
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImg.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
