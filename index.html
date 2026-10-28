@@ -1,117 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-   <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลส่วนตัว - ธิติกานต์ สมแก้ว</title>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Prompt', sans-serif;
         }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
-            font-family: 'Tahoma', 'Segoe UI', sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
             min-height: 100vh;
-            padding: 20px;
         }
-        .container {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 500px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid #2b579a;
+
+        /* ตกแต่งพื้นหลังเรืองแสง */
+        .bg-glow-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(99, 102, 241, 0.25);
+            filter: blur(140px);
+            border-radius: 50%;
+            top: 5%;
+            left: 10%;
+            z-index: 1;
         }
-        h1 {
-            font-size: 22px;
-            color: #1b365d;
-            margin-bottom: 20px;
+
+        .bg-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(236, 72, 153, 0.2);
+            filter: blur(140px);
+            border-radius: 50%;
+            bottom: 5%;
+            right: 10%;
+            z-index: 1;
+        }
+
+        /* การ์ดหลักแบบ Glassmorphism เต็มหน้าจอ */
+        .main-card {
+            position: relative;
+            z-index: 10;
+            width: 92%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            padding: 45px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        /* ฝั่งรูปภาพโปรไฟล์ */
+        .profile-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding-right: 35px;
         }
-        .visitor-counter {
-            text-align: center;
+
+        .avatar-wrapper {
+            position: relative;
+            width: 210px;
+            height: 210px;
             margin-bottom: 20px;
+            border-radius: 50%;
+            cursor: pointer;
         }
-        .info-table {
+
+        .avatar-img {
             width: 100%;
-            border-collapse: collapse;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background-color: #1e293b;
+            transition: all 0.3s ease;
         }
-        .info-table th, .info-table td {
-            padding: 12px 10px;
-            text-align: left;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 15px;
+
+        /* ตกแต่งขอบไฟเรืองแสงรอบรูป */
+        .avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #a855f7, #ec4899, #3b82f6);
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
         }
-        .info-table th {
-            color: #555;
-            width: 40%;
-            font-weight: 600;
+
+        .avatar-wrapper:hover .avatar-img {
+            filter: brightness(0.7);
         }
-        .info-table td {
-            color: #222;
+
+        /* Overlay สำหรับเปลี่ยนรูป */
+        .upload-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
-    </style>
-</head>
-<body>
 
-    <div class="container">
-        <!-- สถิติการเข้าชม -->
-        <div class="visitor-counter">
-            <img src="https://visitor-badge.laobi.icu/badge?page_id=Thitikarn-Somkaew.profile&left_color=1b365d&right_color=2b579a&left_text=Visitors" alt="จำนวนผู้เข้าชม">
-        </div>
+        .avatar-wrapper:hover .upload-overlay {
+            opacity: 1;
+        }
 
-        <h1>👤 ข้อมูลส่วนตัว (Personal Profile)</h1>
+        .upload-overlay i {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
 
-        <table class="info-table">
-            <tr>
-                <th>ชื่อ-นามสกุล:</th>
-                <td>ธิติกานต์ สมแก้ว</td>
-            </tr>
-            <tr>
-                <th>ชื่อเล่น:</th>
-                <td>สมาย</td>
-            </tr>
-            <tr>
-                <th>วัน/เดือน/ปีเกิด:</th>
-                <td>13/02/2010</td>
-            </tr>
-            <tr>
-                <th>อายุ:</th>
-                <td>16 ปี</td>
-            </tr>
-            <tr>
-                <th>สัญชาติ:</th>
-                <td>Thai</td>
-            </tr>
-            <tr>
-                <th>ศาสนา:</th>
-                <td>พุทธ</td>
-            </tr>
-            <tr>
-                <th>งานอดิเรก:</th>
-                <td>วาดภาพ</td>
-            </tr>
-        </table>
-    </div>
+        #file-input {
+            display: none;
+        }
 
-</body>
-</html>
-</body>
-</html>
+        .btn-change-photo {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f8fafc;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-change-photo:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(236, 72, 1)}
